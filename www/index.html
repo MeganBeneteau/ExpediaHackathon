@@ -7,6 +7,8 @@
   <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
     <link rel="stylesheet" href="css/app.min.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/flaneur.css">
   <title>Hello World</title>
 </head>
@@ -21,11 +23,13 @@
         </div>
 
         <div class="app-section">
-         {{LIST OF THINGS HERE!}}
-
+          <ul class="app-list" id="main-posts">
+          <div class="loader">Loading...</div>
+          </ul>
         </div>
-        <div class="app-section">
-          <div class="app-button" data-target="page2">Go to Page 2</div>
+        <div class="app-section fl-bottom">
+          <div class="app-button fl-bottom-button fl-split-left" data-target="page3" id="fl-pic"><i class="fui-photo"></i></div>
+          <div class="app-button fl-bottom-button fl-split-right" data-target="page2" id="fl-feeling-lucky">I'm Feeling Lucky!</div>
         </div>
       </div>
     </div>
@@ -71,9 +75,9 @@
             success: function(data) {
               var items = [];
               $.each(data.activities, function(key, val){
-                items.push('<a href="' + posts_url + val.id + '">' + val.id + ' - ' +val.title + ' <img src="'+val.imageUrl+'" /></a>');
+                items.push('<li><a href="' + posts_url + val.id + '">' + val.id + ' - ' +val.title + ' <img src="http:'+val.imageUrl+'" /></a></li>');
               });
-              $('#main-posts').html(items.join('<br/>'));
+              $('#main-posts').html(items.join(''));
               console.log('Exiting onSuccess');
             },
             error: genericErrorHandler

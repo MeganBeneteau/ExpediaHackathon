@@ -1,0 +1,52 @@
+
+#fl-main p, #fl-main h1 {
+	text-align:center;
+}
+
+#fl-main p {
+	font-size:1.3em;
+	color:#973E6D;
+	letter-spacing: 10px;
+	margin-bottom: -10px;
+}
+
+#fl-main h1 {
+	margin-top:5px;
+	margin-bottom:0;
+}
+
+.fl-bottom {
+	position: fixed;
+	left:0px;
+	bottom:0px;
+	width:90%;
+	height: 30;
+	background-color:#973E6D;
+	min-height:30px;
+	z-index: 4;
+	padding:4px;
+	text-align: center;
+}
+
+#fl-feeling-lucky{
+	font-weight: 2px;
+	color: #973E6D;
+}
+
+#fl-pic{
+		color: #973E6D;
+}
+
+.fl-bottom-button{
+	display: inline-block;
+	margin:0 0;
+	margin-top: 0;
+	font-size:1.3em;
+}
+.fl-split-left{
+	width:20%;
+}
+
+.fl-split-right{
+	width:75%;
+}
