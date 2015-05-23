@@ -7,17 +7,23 @@
   <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
     <link rel="stylesheet" href="css/app.min.css">
-    <style>
-    /*CUSTOM STYLE IF NEEDED*/
-    </style>
+    <link rel="stylesheet" href="css/flaneur.css">
   <title>Hello World</title>
 </head>
 <body>
     <div class="app-page" data-page="home">
-      <div class="app-topbar">
-        <div class="app-title">Home page</div>
-      </div>
       <div class="app-content">
+        <div class="app-section">
+          <div id="fl-main">
+            <p>things to do in</p>
+            <h1>MONTREAL</h1>
+          </div>
+        </div>
+
+        <div class="app-section">
+         {{LIST OF THINGS HERE!}}
+
+        </div>
         <div class="app-section">
           <div class="app-button" data-target="page2">Go to Page 2</div>
         </div>
@@ -37,8 +43,41 @@
     <script src="js/zepto.js"></script>
     <script src="js/app.min.js"></script>
     <script>
-      App.controller('home', function (page) {
-        // put stuff here
+    //  NEED TO MOVE THIS INTO A SEPARATE SCRIPT!
+
+      function genericErrorHandler ( data , textStatus , errorThrown ) {
+        console.log(data)
+        App.dialog({
+          title        : data.status+' '+data.statusText,
+          text         : data.responseText || data.response || 'unknown error',
+          okButton     : 'Try Again',
+          cancelButton : 'Cancel'
+        }, function (tryAgain) {
+          if (tryAgain) {
+          // try again
+          console.log('not implemented yet');
+        }
+        });
+
+      }
+      App.controller( 'home' , function ( page ) {
+        var posts_url = "http://terminal2.expedia.com/x/activities/search?location=London&startDate=2015-08-08&endDate=2015-08-18&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk";
+
+        console.log('Reading posts');
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: posts_url,
+            success: function(data) {
+              var items = [];
+              $.each(data.activities, function(key, val){
+                items.push('<a href="' + posts_url + val.id + '">' + val.id + ' - ' +val.title + ' <img src="'+val.imageUrl+'" /></a>');
+              });
+              $('#main-posts').html(items.join('<br/>'));
+              console.log('Exiting onSuccess');
+            },
+            error: genericErrorHandler
+        });
       });
 
       App.controller('page2', function (page) {
