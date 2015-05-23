@@ -17,19 +17,19 @@
       <div class="app-content">
         <div class="app-section">
           <div id="fl-main">
-            <p>things to do in</p>
+            <p>flanuer in</p>
             <h1>MONTREAL</h1>
           </div>
         </div>
 
-        <div class="app-section">
+        <div class="app-section fl-post-wrapper">
           <ul class="app-list" id="main-posts">
           <div class="loader">Loading...</div>
           </ul>
         </div>
         <div class="app-section fl-bottom">
           <div class="app-button fl-bottom-button fl-split-left" data-target="page3" id="fl-pic"><i class="fui-photo"></i></div>
-          <div class="app-button fl-bottom-button fl-split-right" data-target="page2" id="fl-feeling-lucky">I'm Feeling Lucky!</div>
+          <div class="app-button fl-bottom-button fl-split-right" data-target="page2" id="fl-feeling-lucky">I'm Feeling Adventurous!</div>
         </div>
       </div>
     </div>
@@ -44,55 +44,18 @@
       </div>
     </div>
 
+    <div class="app-page" data-page="page3">
+      <div class="app-topbar">
+        <div class="app-button left" data-back data-autotitle></div>
+        <div class="app-title">Page 2</div>
+      </div>
+      <div class="app-content">
+        Page 3 is lonely
+      </div>
+    </div>
+
     <script src="js/zepto.js"></script>
     <script src="js/app.min.js"></script>
-    <script>
-    //  NEED TO MOVE THIS INTO A SEPARATE SCRIPT!
-
-      function genericErrorHandler ( data , textStatus , errorThrown ) {
-        console.log(data)
-        App.dialog({
-          title        : data.status+' '+data.statusText,
-          text         : data.responseText || data.response || 'unknown error',
-          okButton     : 'Try Again',
-          cancelButton : 'Cancel'
-        }, function (tryAgain) {
-          if (tryAgain) {
-          // try again
-          console.log('not implemented yet');
-        }
-        });
-
-      }
-      App.controller( 'home' , function ( page ) {
-        var posts_url = "http://terminal2.expedia.com/x/activities/search?location=London&startDate=2015-08-08&endDate=2015-08-18&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk";
-
-        console.log('Reading posts');
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: posts_url,
-            success: function(data) {
-              var items = [];
-              $.each(data.activities, function(key, val){
-                items.push('<li><a href="' + posts_url + val.id + '">' + val.id + ' - ' +val.title + ' <img src="http:'+val.imageUrl+'" /></a></li>');
-              });
-              $('#main-posts').html(items.join(''));
-              console.log('Exiting onSuccess');
-            },
-            error: genericErrorHandler
-        });
-      });
-
-      App.controller('page2', function (page) {
-        // put stuff here
-      });
-
-      try {
-        App.restore();
-      } catch (err) {
-        App.load('home');
-      }
-    </script>
+    <script src="js/index.js"></script>
 </body>
 </html>

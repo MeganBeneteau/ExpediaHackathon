@@ -50,3 +50,34 @@
 .fl-split-right{
 	width:75%;
 }
+
+.fl-main-list{
+	height: 200px !important;
+	margin-bottom: 5px !important;
+	background-size: cover !important;
+}
+
+.fl-post-wrapper{
+	padding:0;
+	background-color: transparent;
+}
+
+.fl-list-internal{
+  background-image: linear-gradient(to bottom right,transparent, rgba(220, 66, 37, 0.3));
+  height: 100%;
+  width:110%;
+  margin-right: 0;
+  z-index:-1;
+  margin-left: -20px;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+.fl-list-internal h1 {
+	position: absolute;
+	bottom:0;
+}
+
+.fl-list-internal a:visited, .fli-list-internal a {
+	color:white;
+}
