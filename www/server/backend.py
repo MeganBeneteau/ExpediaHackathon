@@ -7,22 +7,22 @@ app = Flask(__name__)
 def hello():
 	return "Hello world"
 
-@app.route("/location/<lat>/<long>")
-def location(lat, long):
+@app.route("/location/<lat>/<longi>")
+def location(lat, longi):
 
 	# i'm providing you with lat and long
 	# use function to get the real city name
 	# return to me a STRING with the city name
-
+	return hello1(lat, longi)
 	pass
 
-@app.route("/feelinglucky/<lat>/<long>")
-def feelingLucky(lat, long):
+@app.route("/feelinglucky/<lat>/<longi>")
+def feelingLucky(lat, longi):
 
 	# this function will return JSON in the following form:
 	"""
 	# result : {
-		breakfast: <name of place>, <exact location>, <rating>, <price range>, any other data
+		breakfast: <name of place>, <exact location>, <rating>, <price range>, any other data (image_url)
 		morning activity: 
 		lunch: same as above
 		afternoon activity
