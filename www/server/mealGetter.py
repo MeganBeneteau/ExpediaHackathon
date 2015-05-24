@@ -179,19 +179,19 @@ def restaurant(mealType, lat=45.5017, longi=-73.5673):
 			#pprint.pprint(v)
 			try:
 				for v_sub in v:
-					tobereturned = { 'name' : v_sub['name'], 'phone' : v_sub['phone'], 'rating' : v_sub['rating'], 'snippet_image_url':v_sub['snippet_image_url'], 'address' : v_sub['location']['display_address']}
+					tobereturned = { 'name' : v_sub['name'], 'phone' : v_sub['phone'], 'rating' : v_sub['rating'], 'image_url':v_sub['snippet_image_url'], 'address' : v_sub['location']['display_address'], 'lat': v_sub['location']['coordinate']['latitude'], 'longi' : v_sub['location']['coordinate']['longitude']}
 					result_list.append(tobereturned)
 			except TypeError:		
 					pass
 	# pprint.pprint(resto_phone_numbers)
 	# pprint.pprint(resto_names)
-	# pprint.pprint(result_list)
+	pprint.pprint(api_calls)
 	#final_results_list = simplejson.dumps(result_list)
 	#pprint.pprint(final_results_list)
 	#pprint.pprint(type(result_list))
 	return result_list
 
-#restaurant("bar")
+restaurant("bar")
 #poi_calculator(5)
 # adventure_things_to_do()
 #details()
