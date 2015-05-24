@@ -55,11 +55,16 @@ def adventure_things_to_do(lat=45.5017, longi=-73.5673):
 	data1 = json.loads(temp1)
 	data2 = data1['activities']
 	for item in data2:
-		name = data2['title']
-		duration = data2['duration']
-		price = data2['fromPrice']
-		image_url = data2['imageUrl']
-	pprint.pprint(data2)
+		name = item['title']
+		duration = item['duration']
+		price = item['fromPrice']
+		image_url = item['imageUrl']
+		latlng = item['latLng'].split(',')
+		lati = latlng[0]
+		longi = latlng[1]
+		toBeReturned = {'name':name, 'duration': duration, 'price': price, 'image_url': image_url, 'lat': lati, 'longi': longi}
+		result_list.append(toBeReturned)
+	pprint.pprint(result_list)
 
 
 def poi_calculator(dist=2, lat=45.5017, longi=-73.5673):
@@ -77,8 +82,8 @@ def poi_calculator(dist=2, lat=45.5017, longi=-73.5673):
 		return_item = {'name' : name, 'lat' : lati, 'long' : longii}
 		result_list.append(return_item)
 
-	final_results_list = simplejson.dumps(result_list)
-	return final_results_list
+	#final_results_list = simplejson.dumps(result_list)
+	return result_list
 
 def get_results(params):
 
@@ -133,7 +138,7 @@ def restaurant(mealType, lat=45.5017, longi=-73.5673):
 	# pprint.pprint(list(flattendAPICalls))
 	# pprint.pprint(len(flattendAPICalls))
 	#pprint.pprint(api_calls)
-	pprint.pprint("**************************************************")
+	# pprint.pprint("**************************************************")
 	result_list = []
 	for topLevel in api_calls:
 		for k,v in topLevel.items():
@@ -148,9 +153,9 @@ def restaurant(mealType, lat=45.5017, longi=-73.5673):
 	# pprint.pprint(resto_phone_numbers)
 	# pprint.pprint(resto_names)
 	# pprint.pprint(result_list)
-	final_results_list = simplejson.dumps(result_list)
+	#final_results_list = simplejson.dumps(result_list)
 	#pprint.pprint(final_results_list)
-	return final_results_list
+	return result_list
 
 #restaurant("bar")
 #poi_calculator(5)
