@@ -44,6 +44,27 @@ def hello1(x=45.5017,y=-73.5673):
 	# 		except UnicodeEncodeError:
 	# 			pass
 
+def adventure_things_to_do(lat=45.5017, longi=-73.5673):
+	cityName = hello1(lat, longi)
+	url1 = "http://terminal2.expedia.com/x/activities/search?location="+cityName+"&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk"
+
+	response1 = urllib.request.urlopen(url1)
+	temp1 = response1.read().decode("utf-8")
+	#print ("got here")
+
+	data1 = json.loads(temp1)
+	pprint.pprint(data1)
+
+
+def poi_calculator(dist=2, lat=45.5017, longi=-73.5673):
+	url1 = "http://terminal2.expedia.com/x/geo/features?ln.op=cn&ln.value=bars&within="+str(dist)+"km&lng="+str(longi)+"&lat="+str(lat)+"&type=point_of_interest&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk"
+
+	response1 = urllib.request.urlopen(url1)
+	temp1 = response1.read().decode("utf-8")
+	#print ("got here")
+
+	data1 = json.loads(temp1)
+	pprint.pprint(data1)
 
 
 def get_results(params):
@@ -89,8 +110,8 @@ def flatten(iterable, ltypes=collections.Iterable):
 			yield first
 
 
-def restaurant(mealType):
-	locations = [(39.98,-82.98),(42.24,-83.61),(41.33,-89.13)]
+def restaurant(mealType, lat=45.5017, longi=-73.5673):
+	locations = [(lat,longi)]
 	api_calls = []
 	for lat,longi in locations:
 		params = get_search_parameters(lat,longi,mealType)
@@ -98,13 +119,32 @@ def restaurant(mealType):
 	# flattendAPICalls = flatten(api_calls, 10)
 	# pprint.pprint(list(flattendAPICalls))
 	# pprint.pprint(len(flattendAPICalls))
-	pprint.pprint(api_calls)
+	#pprint.pprint(api_calls)
 	pprint.pprint("**************************************************")
+	result_list = []
 	for topLevel in api_calls:
-		for k,v in topLevel:
+		for k,v in topLevel.items():
 			#v is a list
-			for v_sub in v:
-				pprint.pprint(v_sub)
+			#pprint.pprint(v)
+			try:
+				for v_sub in v:
+					tobereturned = { 'name' : v_sub['name'], 'phone' : v_sub['phone'], 'rating' : v_sub['rating'], 'snippet_image_url':v_sub['snippet_image_url'], 'address' : v_sub['location']['display_address']}
+					result_list.append(tobereturned)
+			except TypeError:		
+					pass
+	# pprint.pprint(resto_phone_numbers)
+	# pprint.pprint(resto_names)
+	# pprint.pprint(result_list)
+	final_results_list = simplejson.dumps(result_list)
+	pprint.pprint(final_results_list)
+	return final_results_list
 
+#restaurant("bar")
+# poi_calculator(5)
+adventure_things_to_do()
 
-restaurant("breakfast")
+'''
+
+ 'snippet_image_url': 'http://s3-media4.fl.yelpcdn.com/photo/jATr1G4akQEa177uExT
+eXA/ms.jpg',
+'''
