@@ -1,5 +1,5 @@
 from flask import Flask, request 
-from mealGetter import hello1
+from mealGetter import *
 # from exifExtract import exif_extract
 
 
@@ -22,6 +22,10 @@ def location(lat, longi):
 def feelingLucky(lat, longi):
 
 	# this function will return JSON in the following form:
+	breakfast = restaurants("breakfast", lat, longi)
+	lunch = restaurants("lunch", lat, longi)
+	dinner = restaurants("dinner", lat, longi)
+	bars = restaurants("bar", lat, longi)
 	"""
 	# result : {
 		breakfast: <name of place>, <exact location>, <rating>, <price range>, any other data (image_url)
