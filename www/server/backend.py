@@ -25,8 +25,8 @@ def poime(dist,lat,lng):
 	return Response(json.dumps(poi_calculator(dist, lat, lng)),  mimetype='application/json')
 	
 
-@app.route("/feelinglucky/<lat>/<longi>")
-def feelingLucky(lat, longi):
+@app.route("/feelinglucky/<cate>/<lat>/<longi>")
+def feelingLucky(cate, lat, longi):
 
 	# this function will return JSON in the following form:
 	breakfast = restaurants("breakfast", lat, longi)
@@ -47,8 +47,10 @@ def feelingLucky(lat, longi):
 
 	pass
 
+@app.route("/adventureThingsToDo/<lat>/<lng>")
+def adv ( lat, lng ):
 
-
+	return Response(json.dumps(adventure_things_to_do(lat, lng)),  mimetype='application/json')
 
 @app.route("/restaurants/<mealtype>/<lat>/<lng>")
 def restuarants(mealtype, lat,lng):
