@@ -13,12 +13,23 @@
   <title>Hello World</title>
 </head>
 <body>
+    <div id="loading-page" style="text-align:center; letter-spacing:10px">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+      flaneur
+      <div class="loader">loading...</div>
+    </div>
+
+
     <div class="app-page" data-page="home">
       <div class="app-content">
         <div class="app-section">
           <div id="fl-main">
             <p>flanuer in</p>
-            <h1>MONTREAL</h1>
+            <h1 id="curr-loc"></h1>
           </div>
         </div>
 
@@ -29,18 +40,64 @@
         </div>
         <div class="app-section fl-bottom">
           <div class="app-button fl-bottom-button fl-split-left" data-target="page3" id="fl-pic"><i class="fui-photo"></i></div>
-          <div class="app-button fl-bottom-button fl-split-right" data-target="page2" id="fl-feeling-lucky">I'm Feeling Adventurous!</div>
+          <div class="app-button fl-bottom-button fl-split-right" data-target="feeling-lucky-page" id="fl-feeling-lucky">I'm Feeling...</div>
         </div>
       </div>
     </div>
 
-    <div class="app-page" data-page="page2">
+
+
+
+    <div class="app-page" data-page="feeling-lucky-page">
       <div class="app-topbar">
         <div class="app-button left" data-back data-autotitle></div>
-        <div class="app-title">Page 2</div>
+        <div class="app-title">I'm Feeling...</div>
       </div>
       <div class="app-content">
-        Page 2 is lonely
+      
+        <ul class="app-list fl-list-smaller" id="fl-moods-holder">
+          <li class="fl-main-list"  style="background-image:url(http://pixabay.com/static/uploads/photo/2014/04/05/11/39/concert-316464_640.jpg);background-size: Auto 200px; background-repeat: none;">
+            <div class="fl-list-internal  app-button button-override" onclick="setParam('artsy')">
+              <h3>artsy</h3>
+            </div>
+          </li>         <li class="fl-main-list"  style="background-image:url(http://pixabay.com/static/uploads/photo/2014/05/05/20/49/roller-coaster-338572_640.jpg);background-size: Auto 200px; background-repeat: none;">
+            <div class="fl-list-internal app-button button-override" onclick="setParam('adventurous')">
+              
+
+              <h3>adventurous</h3>
+            </div>
+          </li>        <li class="fl-main-list"  style="background-image:url(https://c1.staticflickr.com/1/245/5073939377_c9ec6c71e2_b.jpg);background-size: Auto 200px; background-repeat: none;">
+            <div class="fl-list-internal app-button button-override" onclick="setParam('foody')">              
+            <h3>foody</h3>
+            </div>
+          </li>
+          </li>
+        </ul>
+
+
+        <ul class="app-list fl-list-smaller" id="fl-moods-holder">
+          <li class="fl-main-list"  style="background-image:url(https://c2.staticflickr.com/6/5514/11391860303_30d0202287_b.jpg);background-size: Auto 200px; background-repeat: none;">
+            <div class="fl-list-internal app-button button-override" onclick="setParam('romantic')">
+              <h3>romantic</h3>
+            </div>
+          </li>        <li class="fl-main-list" style="background-image:url(http://upload.wikimedia.org/wikipedia/commons/1/11/Douglas_DC3,_Science_Museum,_Wroughton_-_geograph.org.uk_-_551235.jpg);background-size: Auto 200px; background-repeat: none;">
+            <div class="app-button fl-list-internal button-override" onclick="setParam('sciency')">
+              <h3>sciency</h3>
+            </div>
+            
+          </li>        
+          <li class="fl-main-list" style="background-image:url(https://unsplash.imgix.net/37/lynDyjGSR9eR57ouPIEE_IMG_woods.jpg?fit=crop&fm=jpg&h=500&q=75&w=725);background-size: Auto 200px; background-repeat: none;">
+            <div class="app-button fl-list-internal  button-override" onclick="setParam('outdoorsy')">
+              <h3>
+                outdoorsy
+              </h3>
+            </div>
+          </li>
+          </li>
+        </ul>
+        
+
+
       </div>
     </div>
 
@@ -49,13 +106,30 @@
         <div class="app-button left" data-back data-autotitle></div>
         <div class="app-title">Page 2</div>
       </div>
-      <div class="app-content">
-        Page 3 is lonely
+      <div class="app-content" id="fl-photo-picker">
+       <button onclick="getPhoto(navigator.camera.PictureSourceType.PHOTOLIBRARY);">Get photo</button><br>
+       <img id="my-image" />
       </div>
     </div>
 
+
+    <div class="app-page" data-page="feeling-lucky-cate">
+      <div class="app-topbar">
+        <div class="app-button left" data-back data-autotitle></div>
+        <div class="app-title" id="feeling-lucky-title">Itinerary details</div>
+      </div>
+
+      <div class="app-content" id="fl-cat-main">
+        <p id="cap"></p>
+      </div>
+    </div>
+
+
     <script src="js/zepto.js"></script>
     <script src="js/app.min.js"></script>
+    <script src="js/exif.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
     <script src="js/index.js"></script>
 </body>
 </html>
