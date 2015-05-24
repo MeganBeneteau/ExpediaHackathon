@@ -22,7 +22,7 @@
           $('#main-posts').html(populate.join(''));
         }
 
-        this.transition = 'scale-in'
+        this.transition = 'slide-up'
         var posts_url = "http://terminal2.expedia.com/x/activities/search?location="+myLocation+"&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk";
         console.log('Reading posts');
         $.ajax({
@@ -50,15 +50,42 @@
         });
       });
 
+      params = { selectedcat:'what' }
       App.controller('feeling-lucky-page', function (page) {
         // put stuff here
         this.transition = 'slide-up';
 
+      });
+
+      App.controller('feeling-lucky-cate', function (page) {
+        this.transition = 'slide-left';
+        
+        setTimeout(function(){
+          $('#feeling-lucky-title').html(params.selectedcat);
+
+
+
+
+
+        }, 100)        
+        // $.ajax({
+        //     type: "GET",
+        //     url: "http://localhost:5000/feelinglucky/"+params.selectedcat+"/"+position.coords.latitude+"/"+position.coords.longitude,
+        //     success: function(data) {
+        //       myLocation = data;
+
+        //     },
+        //     error: genericErrorHandler
+        // });
+
 
       });
 
+
       App.controller('page3' , function (page) {
         this.transition = 'slide-up';
+
+        genericErrorHandler({status:'1', responseText:'This feature is not implemented yet'});
       });
 
       
@@ -73,10 +100,10 @@
               $('#curr-loc').append(myLocation);
               $('#loading-page').remove();
               try {
-          App.restore();
-        } catch (err) {
-          App.load('home');
-        }
+                App.restore();
+              } catch (err) {
+                App.load('home');
+              }
             },
             error: genericErrorHandler
         });
@@ -84,5 +111,10 @@
         
       }, genericErrorHandler);
 
-
+      function setParam(param){
+        params.selectedcat = param;
+        console.log('set param to '+param);
+        App.load('feeling-lucky-cate');
+        console.log(params)
+      }
 
