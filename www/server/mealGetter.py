@@ -1,4 +1,4 @@
-import json, urllib.request, simplejson, pprint, unicodedata, rauth, itertools as IT, collections
+import json, urllib.request, simplejson, pprint, unicodedata, rauth, itertools as IT, collections, string
 
 def hello1(x=45.5017,y=-73.5673):
 
@@ -44,7 +44,7 @@ def hello1(x=45.5017,y=-73.5673):
 	# 		except UnicodeEncodeError:
 	# 			pass
 
-def adventure_things_to_do(lat=45.5017, longi=-73.5673):
+def adventure_things_to_do(cate=["tour", "walk", "museum"],lat=45.5017, longi=-73.5673):
 	cityName = hello1(lat, longi)
 	url1 = "http://terminal2.expedia.com/x/activities/search?location="+cityName+"&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk"
 
@@ -55,17 +55,48 @@ def adventure_things_to_do(lat=45.5017, longi=-73.5673):
 	data1 = json.loads(temp1)
 	data2 = data1['activities']
 	for item in data2:
-		name = item['title']
-		duration = item['duration']
-		price = item['fromPrice']
-		image_url = item['imageUrl']
-		latlng = item['latLng'].split(',')
-		lati = latlng[0]
-		longi = latlng[1]
-		toBeReturned = {'name':name, 'duration': duration, 'price': price, 'image_url': image_url, 'lat': lati, 'longi': longi}
-		result_list.append(toBeReturned)
+		actID = item['id']
+		temp = details(cityName, actID, lat, longi)
+		desc = temp['description']
+		highlights = temp['highlights']
+
+		if (cate[0] in desc) or (cate[0] in highlights) or (cate[1] in desc) or (cate[1] in highlights) or (cate[2] in desc) or (cate[2] in highlights):
+			name = item['title']
+			duration = item['duration']
+			price = item['fromPrice']
+			image_url = item['imageUrl']
+			latlng = item['latLng'].split(',')
+			lati = latlng[0]
+			longi = latlng[1]
+			toBeReturned = {'name':name, 'duration': duration, 'price': price, 'image_url': image_url, 'lat': lati, 'longi': longi}
+			result_list.append(toBeReturned)
 	#pprint.pprint(result_list)
+	#pprint.pprint(data2)
+	# pprint.pprint(type(cityName))
+	# pprint.pprint(cityName)
 	return result_list
+
+def details(cityName="Montreal", actID=220707, lat=45.5017, longi=-73.5673 ):
+	url1 = "http://terminal2.expedia.com/x/activities/details?activityId="+str(actID)+"&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk"
+
+	response1 = urllib.request.urlopen(url1)
+	temp1 = response1.read().decode("utf-8")
+	#print ("got here")
+	temp1 = ''.join(filter(lambda x: x in string.printable, temp1))
+	result_list = []
+	data1 = json.loads(temp1)
+
+	try: 
+		description = data1['description']
+		highlights = data1['highlights']
+	except KeyError:
+		description=""
+		highlights=""
+
+	result = {'description':description, 'highlights': highlights}
+
+	#pprint.pprint(result)
+	return result
 
 
 def poi_calculator(dist=2, lat=45.5017, longi=-73.5673):
@@ -84,6 +115,7 @@ def poi_calculator(dist=2, lat=45.5017, longi=-73.5673):
 		result_list.append(return_item)
 
 	#final_results_list = simplejson.dumps(result_list)
+	#pprint.pprint(data1)
 	return result_list
 
 def get_results(params):
@@ -156,14 +188,22 @@ def restaurant(mealType, lat=45.5017, longi=-73.5673):
 	# pprint.pprint(result_list)
 	#final_results_list = simplejson.dumps(result_list)
 	#pprint.pprint(final_results_list)
+	#pprint.pprint(type(result_list))
 	return result_list
 
 #restaurant("bar")
 #poi_calculator(5)
-#adventure_things_to_do()
-
+# adventure_things_to_do()
+#details()
 '''
 
  'snippet_image_url': 'http://s3-media4.fl.yelpcdn.com/photo/jATr1G4akQEa177uExT
 eXA/ms.jpg',
+'''
+
+
+'''
+make a filter using categories 
+
+find a way to select options randomly from the list 
 '''

@@ -1,4 +1,4 @@
-from flask import Flask, request, json, Response
+from flask import Flask, request, json, Response, random
 from mealGetter import *
 # from exifExtract import exif_extract
 
@@ -33,6 +33,37 @@ def feelingLucky(cate, lat, longi):
 	lunch = restaurants("lunch", lat, longi)
 	dinner = restaurants("dinner", lat, longi)
 	bars = restaurants("bar", lat, longi)
+
+	cate_list = []
+	if cate=="artsy":
+		cate_list = ["museum", "concert", "gallery"]
+	if cate=="romantic":
+		cate_list = ["cafe", "date", "park"]
+	if cate=="outdoorsy":
+		cate_list = ["hike", "mountains", "park"]
+	if cate=="foody":
+		cate_list = ["restaurant", "gourmet", "cafe"]
+	if cate=="sciency":
+		cate_list = ["museum", "science", "university"]
+	else cate=="adventurous":
+		cate_list = ["park", "water", "high"]
+
+
+	afternoon = adventure_things_to_do(cate_list, lat, longi)
+	morning = adventure_things_to_do(cate_list, lat, lang)
+
+	breakfastOne = random.choice(breakfast)
+	lunchOne = random.choice(lunch)
+	dinnerOne = random.choice(dinner)
+	barOne = random.choice(bars)
+	afternoonOne = random.choice(afternoon)
+	morningOne = random.choice(morning)
+
+	toBeReturned = {'breakfast': breakfastOne, 'lunch': lunchOne, 'dinner': dinnerOne, 'bar' : barOne, 'morning': morningOne, 'afternoon': afternoonOne}
+
+	# make a filter using category
+	# select randomly from the eating places and for the things to do 
+
 	"""
 	# result : {
 		breakfast: <name of place>, <exact location>, <rating>, <price range>, any other data (image_url)
@@ -45,7 +76,8 @@ def feelingLucky(cate, lat, longi):
 
 	"""
 
-	pass
+	
+	return Response(json.dumps(toBeReturned),  mimetype='application/json')
 
 @app.route("/adventureThingsToDo/<lat>/<lng>")
 def adv ( lat, lng ):
