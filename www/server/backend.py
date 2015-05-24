@@ -1,4 +1,5 @@
-from flask import Flask, request, json, Response, random
+from flask import Flask, request, json, Response
+import random
 from mealGetter import *
 # from exifExtract import exif_extract
 
@@ -29,10 +30,10 @@ def poime(dist,lat,lng):
 def feelingLucky(cate, lat, longi):
 
 	# this function will return JSON in the following form:
-	breakfast = restaurants("breakfast", lat, longi)
-	lunch = restaurants("lunch", lat, longi)
-	dinner = restaurants("dinner", lat, longi)
-	bars = restaurants("bar", lat, longi)
+	breakfast = restaurant("breakfast", lat, longi)
+	lunch = restaurant("lunch", lat, longi)
+	dinner = restaurant("dinner", lat, longi)
+	bars = restaurant("bar", lat, longi)
 
 	cate_list = []
 	if cate=="artsy":
@@ -45,12 +46,12 @@ def feelingLucky(cate, lat, longi):
 		cate_list = ["restaurant", "gourmet", "cafe"]
 	if cate=="sciency":
 		cate_list = ["museum", "science", "university"]
-	else cate=="adventurous":
+	elif cate == "adventurous":
 		cate_list = ["park", "water", "high"]
 
 
 	afternoon = adventure_things_to_do(cate_list, lat, longi)
-	morning = adventure_things_to_do(cate_list, lat, lang)
+	morning = adventure_things_to_do(cate_list, lat, longi)
 
 	breakfastOne = random.choice(breakfast)
 	lunchOne = random.choice(lunch)
