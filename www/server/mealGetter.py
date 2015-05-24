@@ -51,21 +51,34 @@ def adventure_things_to_do(lat=45.5017, longi=-73.5673):
 	response1 = urllib.request.urlopen(url1)
 	temp1 = response1.read().decode("utf-8")
 	#print ("got here")
-
+	result_list = []
 	data1 = json.loads(temp1)
-	pprint.pprint(data1)
+	data2 = data1['activities']
+	for item in data2:
+		name = data2['title']
+		duration = data2['duration']
+		price = data2['fromPrice']
+		image_url = data2['imageUrl']
+	pprint.pprint(data2)
 
 
 def poi_calculator(dist=2, lat=45.5017, longi=-73.5673):
-	url1 = "http://terminal2.expedia.com/x/geo/features?ln.op=cn&ln.value=bars&within="+str(dist)+"km&lng="+str(longi)+"&lat="+str(lat)+"&type=point_of_interest&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk"
+	url1 = "http://terminal2.expedia.com/x/geo/features?within="+str(dist)+"km&lng="+str(longi)+"&lat="+str(lat)+"&type=point_of_interest&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk"
 
 	response1 = urllib.request.urlopen(url1)
 	temp1 = response1.read().decode("utf-8")
 	#print ("got here")
-
+	result_list = []
 	data1 = json.loads(temp1)
-	pprint.pprint(data1)
+	for item in data1:
+		name = item['name']
+		lati = item['position']['coordinates'][1]
+		longii = item['position']['coordinates'][0]
+		return_item = {'name' : name, 'lat' : lati, 'long' : longii}
+		result_list.append(return_item)
 
+	final_results_list = simplejson.dumps(result_list)
+	return final_results_list
 
 def get_results(params):
 
@@ -136,11 +149,11 @@ def restaurant(mealType, lat=45.5017, longi=-73.5673):
 	# pprint.pprint(resto_names)
 	# pprint.pprint(result_list)
 	final_results_list = simplejson.dumps(result_list)
-	pprint.pprint(final_results_list)
+	#pprint.pprint(final_results_list)
 	return final_results_list
 
 #restaurant("bar")
-# poi_calculator(5)
+#poi_calculator(5)
 adventure_things_to_do()
 
 '''
