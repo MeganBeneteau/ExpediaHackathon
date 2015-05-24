@@ -64,7 +64,8 @@ def adventure_things_to_do(lat=45.5017, longi=-73.5673):
 		longi = latlng[1]
 		toBeReturned = {'name':name, 'duration': duration, 'price': price, 'image_url': image_url, 'lat': lati, 'longi': longi}
 		result_list.append(toBeReturned)
-	pprint.pprint(result_list)
+	#pprint.pprint(result_list)
+	return result_list
 
 
 def poi_calculator(dist=2, lat=45.5017, longi=-73.5673):
@@ -159,7 +160,7 @@ def restaurant(mealType, lat=45.5017, longi=-73.5673):
 
 #restaurant("bar")
 #poi_calculator(5)
-adventure_things_to_do()
+#adventure_things_to_do()
 
 '''
 
