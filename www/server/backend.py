@@ -1,4 +1,4 @@
-from flask import Flask, request 
+from flask import Flask, request, json, Response
 from mealGetter import *
 # from exifExtract import exif_extract
 
@@ -17,6 +17,13 @@ def location(lat, longi):
 	# return to me a STRING with the city name
 	return hello1(lat, longi)
 	pass
+
+
+@app.route("/poi/<dist>/<lat>/<lng>")
+def poime(dist,lat,lng):
+	
+	return Response(json.dumps(poi_calculator(dist, lat, lng)),  mimetype='application/json')
+	
 
 @app.route("/feelinglucky/<lat>/<longi>")
 def feelingLucky(lat, longi):
@@ -41,25 +48,14 @@ def feelingLucky(lat, longi):
 	pass
 
 
-@app.route("/getExifData", methods=['GET'])
-def getExifData():
-	"""
-		This returns the exif data for an image
-
-	"""
-
-	res = exif_extract(request.form['data'])
-
-	print(str(res))
-
-	return str(res)
 
 
-@app.route("/restaurants/<long>/<lat>")
-def restuarants():
+@app.route("/restaurants/<mealtype>/<lat>/<lng>")
+def restuarants(mealtype, lat,lng):
 	# make a call here to another file that 
-	print ("4")
-	hello1()
+	# print ("4")
+	# hello1()
+	return Response(json.dumps(restaurant(mealtype, lat, lng)),  mimetype='application/json')
 
 if __name__ == "__main__":
 	app.run(debug=True)
