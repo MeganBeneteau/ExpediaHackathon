@@ -1,5 +1,7 @@
-from flask import Flask 
+from flask import Flask, request 
 from mealGetter import hello1
+# from exifExtract import exif_extract
+
 
 app = Flask(__name__)
 
@@ -35,6 +37,19 @@ def feelingLucky(lat, long):
 	pass
 
 
+@app.route("/getExifData", methods=['GET'])
+def getExifData():
+	"""
+		This returns the exif data for an image
+
+	"""
+
+	res = exif_extract(request.form['data'])
+
+	print(str(res))
+
+	return str(res)
+
 
 @app.route("/restaurants/<long>/<lat>")
 def restuarants():
@@ -43,4 +58,4 @@ def restuarants():
 	hello1()
 
 if __name__ == "__main__":
-	app.run()
+	app.run(debug=True)
