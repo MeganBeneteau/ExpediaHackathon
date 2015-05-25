@@ -9,7 +9,61 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Media\"><param name=\"android-package\" value=\"org.apache.cordova.media.AudioHandler\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 4
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
                             "count": 1
                         }
                     ]
@@ -18,7 +72,25 @@
         }
     },
     "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
         "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "org.apache.cordova.file": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "org.apache.cordova.file-transfer": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "org.apache.cordova.media": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "com.flaneur.flaneur"
         }
     },

@@ -4,12 +4,42 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Camera\"><param name=\"browser-package\" value=\"Camera\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "org.apache.cordova.network-information": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "org.apache.cordova.media": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        },
+        "org.apache.cordova.file-transfer": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "org.apache.cordova.file": {
+            "PACKAGE_NAME": "com.flaneur.flaneur"
+        }
+    }
 }

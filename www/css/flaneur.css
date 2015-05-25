@@ -1,3 +1,6 @@
+a, a:hover, a:visited, a:link {
+	text-decoration: none;
+}
 
 #fl-main p, #fl-main h1 {
 	text-align:center;
@@ -63,21 +66,65 @@
 }
 
 .fl-list-internal{
-  background-image: linear-gradient(to bottom right,transparent, rgba(220, 66, 37, 0.3));
+  background-image: linear-gradient(to bottom right,transparent, rgba(220, 66, 37, 0.7));
   height: 100%;
   width:110%;
   margin-right: 0;
-  z-index:-1;
+  z-index:1;
   margin-left: -20px;
   text-align: center;
   color: white;
   position: relative;
 }
-.fl-list-internal h1 {
+.fl-list-internal h3 {
+	padding-left: 5px;
 	position: absolute;
 	bottom:0;
+	word-wrap:break-word;
+	text-align: center;
+}
+.fl-list-internal h3 small{
+	display: block;
 }
 
-.fl-list-internal a:visited, .fli-list-internal a {
+.fl-list-internal a:visited, .fli-list-internal a, .fl-list-internal a:link {
 	color:white;
+	text-decoration: none;
 }
+.app-title{
+	background-color: #973E6D;
+}
+.fl-list-smaller {
+	width: 45%;
+	display:inline-block;
+}
+
+.fl-list-smaller li {
+	padding-right: 0;
+}
+
+.app-button.button-override {
+	color:white;
+	  background-image: linear-gradient(to bottom right,transparent, rgba(220, 66, 37, 0.7));
+  height: 100%;
+  width: 110%;
+  margin-right: 0;
+  z-index: 1;
+  margin-left: -20px;
+  text-align: center;
+  color: white;
+  position: relative;
+  background-color:transparent !important;
+}
+
+#placeForMap { 
+	height: 100%;
+	width: 100% !important;
+}
+
+#map-canvas {
+        height: 100%;
+        width:100% !important;
+        margin: 0px;
+        padding: 0px
+ }

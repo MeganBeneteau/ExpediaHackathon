@@ -1,51 +1,125 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+    //  NEED TO MOVE THIS INTO A SEPARATE SCRIPT!
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+      function genericErrorHandler ( data , textStatus , errorThrown ) {
+        console.log(data)
+        App.dialog({
+          title        : data.status+' '+data.statusText || 'error occured',
+          text         : data.responseText || data.response || 'unknown error',
+          okButton     : 'Try Again',
+          cancelButton : 'Cancel'
+        }, function (tryAgain) {
+          if (tryAgain) {
+          // try again
+          console.log('not implemented yet');
+        }
+        });
 
-        console.log('Received Event: ' + id);
-    }
+      }
+      App.controller( 'home' , function ( page ) {
+        this.transition = 'scale-in'
+        var posts_url = "http://terminal2.expedia.com/x/activities/search?location=Montreal&apikey=JQRFMzp3A0UwRA24DxdRA9HVGI2BU3Fk";
+
+        console.log('Reading posts');
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: posts_url,
+            success: function(data) {
+              var items = [];
+              $.each(data.activities, function(key, val){
+                items.push('<li class="fl-main-list" style="background:url(http:'+val.imageUrl+') center center no-repeat">'+
+                    '<div class="fl-list-internal">'+
+                    '<h3><a href="' + posts_url + val.id + '">'+val.title + '</a>' +
+                    '<small><i class="fui-time"></i> ' + val.duration + ' </small> ' +
+                    '</h3>' + 
+                    '</div>' + 
+                    '</li>' +
+                    '');
+              });
+              $('#main-posts').html(items.join(''));
+              console.log('Exiting onSuccess');
+            },
+            error: genericErrorHandler
+        });
+      });
+
+      App.controller('page2', function (page) {
+        // put stuff here
+        this.transition = 'scale-in';
+
+        navigator.geolocation.getCurrentPosition( function( position ) {
+            console.log( position.coords.latitude + ' ' + position.coords.longitude );
+        });
+      });
+
+      App.controller('page3' , function (page) {
+        this.transition = 'slide-up';
+      });
+
+
+      //// ------> UNCOMMENT THIS STUFF <------ ////
+      function getPhoto(source){
+
+            // navigator.camera.getPicture(onPhotoSuccess, function(message){ console.log(message) }, {
+            //     quality:90,
+            //     encodingType: Camera.EncodingType.JPEG,
+            //     destinationType: navigator.camera.DestinationType.FILE_URI,
+            //     sourceType: source 
+            // });
+    var opts = {
+    encodingType: Camera.EncodingType.JPEG,
+    sourceType: source,
+    destinationType: Camera.DestinationType.NATIVE_URI
 };
+            navigator.camera.getPicture(
+        function(imageURI) {
+            console.log(window.resolveLocalFileSystemURL(imageURI,
+                    function(entry) {
+                      console.log(entry);
+                        entry.file(function(file) {
+                            EXIF.getData(file, function() {
+                                var datetime = EXIF.getTag(this, "DateTimeOriginal");
+                                alert(datetime);
+                            });                                                
 
-app.initialize();
+                            // do something useful....
+
+                        }, genericErrorHandler);
+                    },
+                    function(e, m) {
+                        alert('Unexpected error obtaining image file.');
+                        console.log(e)
+                        genericErrorHandler(e, m);
+                    }));
+        },
+        function() {
+            // nada - cancelled
+        },
+        opts);
+            $('#fl-photo-picker').append($('input[type="file"]'));
+        }
+
+        var detail = {data:''}
+        function onPhotoSuccess(imageURI){
+
+            var ima = $('#my-image');
+            ima.attr('src', 'data:image/jpeg;base64,'+imageURI);
+            console.log('before cordova');
+          
+
+            // THIS DOESN't WORK....
+            CordovaExif.readData( imageURI , function ( exifObject ) {
+                console.log('hello');
+                console.log(exifObject);
+                console.log('goodbye');
+            });
+      
+
+            console.log('after cordova');
+        }
+
+      try {
+        App.restore();
+      } catch (err) {
+        App.load('home');
+      }
