@@ -35,7 +35,7 @@
 
         <div class="app-section fl-post-wrapper">
           <ul class="app-list" id="main-posts">
-          <div class="loader">Loading...</div>
+          <div class="loading">loading...</div>
           </ul>
         </div>
         <div class="app-section fl-bottom">
@@ -120,7 +120,13 @@
       </div>
 
       <div class="app-content" id="fl-cat-main">
-        <p id="cap"></p>
+        <p id="cap">
+          <div class="loading">loading</div>
+        </p>
+
+        <div id="placeForMap">
+              <div id="map-canvas"></div>
+        </div>
       </div>
     </div>
 
@@ -128,6 +134,7 @@
     <script src="js/zepto.js"></script>
     <script src="js/app.min.js"></script>
     <script src="js/exif.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 
     <script src="js/index.js"></script>

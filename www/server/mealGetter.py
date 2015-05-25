@@ -179,7 +179,7 @@ def restaurant(mealType, lat=45.5017, longi=-73.5673):
 			#pprint.pprint(v)
 			try:
 				for v_sub in v:
-					tobereturned = { 'name' : v_sub['name'], 'phone' : v_sub['phone'], 'rating' : v_sub['rating'], 'snippet_image_url':v_sub['snippet_image_url'], 'address' : v_sub['location']['display_address']}
+					tobereturned = { 'name' : v_sub['name'], 'rating' : v_sub['rating'], 'snippet_image_url':v_sub['snippet_image_url'], 'address' : v_sub['location']['display_address']}
 					result_list.append(tobereturned)
 			except TypeError:		
 					pass
